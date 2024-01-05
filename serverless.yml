@@ -1,0 +1,20 @@
+service: sls-seed
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api:
+    handler: index.test
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-plugin-typescript
+  - serverless-dynamodb-local
+  - serverless-offline

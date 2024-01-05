@@ -1,9 +1,20 @@
 service: sls-seed
 frameworkVersion: "3"
 
+custom:
+  tableName: "my-table"
+  dynamodb:
+    stages:
+      - dev
+      - prod
+    start:
+      migrate: true
+
 provider:
   name: aws
   runtime: nodejs18.x
+  environment:
+    MY_TABLE: ${self:custom.tableName}
 
 functions:
   api:
@@ -16,5 +27,5 @@ functions:
 plugins:
   - serverless-dotenv-plugin
   - serverless-plugin-typescript
-  - serverless-dynamodb-local
+  - serverless-dynamodb
   - serverless-offline
